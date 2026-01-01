@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistindo - Anime Net</title>
+  <link rel="stylesheet" href="player.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="player-page">
+  <div class="player-container">
+    <main class="video-area">
+      <a href="index.html" class="back-btn">← Voltar</a>
+      <div class="video-wrapper" style="position: relative; width: 100%; height: 100%;">
+        <div id="loader" class="skeleton">Carregando player...</div>
+        <iframe id="player" src="" allow="autoplay"
+          style="width: 100%; height: 100%; border: none; position: absolute; top:0; left:0;" allowfullscreen
+          onload="document.getElementById('loader').style.display='none'"></iframe>
+      </div>
+    </main>
+
+    <aside class="episodes-panel">
+      <h3>Episódios</h3>
+      <ul id="episodes-list-real"></ul>
+    </aside>
+  </div>
+
+  <script>
+    // 1. PRIMEIRO definimos as variáveis que pegam dados da URL
+    const params = new URLSearchParams(window.location.search);
+    const anime = params.get('anime') || 'bleach';
+    let currentEp = parseInt(params.get('ep')) || 1;
+
+    // 2. Pegamos os elementos da tela
+    const playerIframe = document.getElementById('player');
+    const episodesList = document.getElementById('episodes-list-real');
+    const user = localStorage.getItem('currentUser') || 'guest';
+
+    async function loadContent() {
+      try {
+        // 3. Busca total de episódios para montar a lista
+        const response = await fetch(`/api/info/${anime}`);
+        const data = await response.json();
+
+        if (!data.total || data.total === 0) {
+          episodesList.innerHTML = "<li>Nenhum episódio encontrado</li>";
+          return;
+        }
+
+        // 4. Cria a lista lateral de episódios
+        episodesList.innerHTML = "";
+        for (let i = 1; i <= data.total; i++) {
+          const li = document.createElement('li');
+          li.innerText = `Episódio ${i}`;
+          li.className = i === currentEp ? "ep-item active" : "ep-item";
+          li.onclick = () => window.location.href = `player.html?anime=${anime}&ep=${i}`;
+          episodesList.appendChild(li);
+        }
+
+        // 5. Busca a URL do vídeo
+        const resUrl = await fetch(`/api/video-url/${anime}/${currentEp}`);
+        const dataUrl = await resUrl.json();
+
+        if (dataUrl.url) {
+          playerIframe.src = dataUrl.url;
+
+          // 6. AGORA SIM salvamos o progresso com o nome do usuário
+          // Isso garante que cada conta tenha seu próprio "Continuar Assistindo"
+          localStorage.setItem(`lastEp_${user}_${anime}`, currentEp);
+        }
+
+      } catch (err) {
+        console.error("Erro ao carregar:", err);
+      }
+    }
+
+    // Inicia tudo
+    loadContent();
+  </script>
+
+</body>
+
+</html>

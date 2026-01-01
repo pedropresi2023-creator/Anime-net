@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Net</title>
+    <link rel="icon" href="assets/AN.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <button>
+            <img src="assets/anime net.png" alt="Anime Net Logo">
+        </button>
+
+        <input type="text" placeholder="Pesquisar">
+        <input type="image" src="assets/pfp.png" alt="User Icon">
+    </header>
+    <main>
+        <section class="main-section">
+            <div class="banner">
+                <video src="assets/bleach trailer.mp4" autoplay muted loop playsinline>
+                </video>
+                <div class="banner-content">
+                    <img src="assets/bleach_logo-removebg-preview.png" alt="Bleach Logo">
+                    <h4>Bleach acompanha Ichigo Kurosaki, um adolescente que ganha poderes de Ceifeiro de Almas e
+                        passa
+                        a
+                        proteger os vivos de espíritos malignos, enquanto enfrenta batalhas que revelam segredos do
+                        mundo
+                        espiritual.</h4>
+                    <button id="bannerWatch">Assistir Agora</button>
+                    <button id="bannerInfo">Mais informações</button>
+
+                </div>
+        </section>
+        <section id="continue-watching-section" style="display: none; margin-bottom: 40px;">
+            <h2>Continuar Assistindo</h2>
+            <div id="continue-container" class="more-watched">
+            </div>
+        </section>
+        <section class="mais-Assistidos">
+            <h2>Mais Assistidos</h2>
+            <div class="more-watched">
+                <div class="card" data-img="assets/naruto.jpg" data-anime="naruto" data-title="Naruto"
+                    data-info="• Classificação: 14+ • Episódios: 220 • Ação, Aventura">
+                    <img src="assets/naruto.jpg" alt="Naruto">
+                </div>
+                <div class="card" data-img="assets/oni piece.jpg" data-anime="one piece" data-title="One Piece"
+                    data-info="• Classificação: 16+ • Episódios: 1000+ • Ação, Aventura">
+                    <img src="assets/oni piece.jpg" alt="One Piece">
+                </div>
+                <div class="card" data-img="assets/attack on titan.webp" data-anime="attack on titan"
+                    data-title="Attack on Titan" data-info="• Classificação: 14+ • Episódios: 85 • Ação, Drama">
+                    <img src="assets/attack on titan.webp" alt="Attack on Titan">
+                </div>
+                <div class="card" data-img="assets/demon slayer.jpg" data-anime="demon slayer" data-title="Demon Slayer"
+                    data-info="• Classificação: 16+ • Episódios: 26 • Ação, Drama">
+                    <img src="assets/demon slayer.jpg" alt="Demon Slayer">
+                </div>
+                <div class="card" data-img="assets/my hero academia.webp" data-anime="my hero academia"
+                    data-title="My Hero Academia" data-info="• Classificação: 12+ • Episódios: 100+ • Ação, Comédia">
+                    <img src="assets/my hero academia.webp" alt="My Hero Academia">
+                </div>
+            </div>
+        </section>
+        <div class="modal" id="animeModal">
+            <div class="modal-content">
+                <img id="modal-img">
+                <div class="modal-body">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-info"></p>
+                    <button id="watchNow">Assistir Agora</button>
+                    <button id="closeModal">Fechar</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="bleachInfoModal">
+            <div class="modal-content">
+                <img src="assets/bleach thumb.jpg" alt="Bleach">
+                <div class="modal-body">
+                    <h2>Bleach</h2>
+                    <p>• Classificação: 14+ • Episódios: 366 • Ação, Sobrenatural, Shounen</p>
+                    <p>Ichigo Kurosaki é um adolescente de 15 anos que tem a habilidade de ver fantasmas. Sua vida muda
+                        quando ele conhece Rukia Kuchiki, uma Ceifeira de Almas (Shinigami).</p>
+                    <button id="watchBleachFromInfo">Assistir Agora</button>
+                    <button id="closeBleachModal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2026 Anime Net. Todos os direitos reservados.</p>
+    </footer>
+    <div id="settingsSidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Configurações</h3>
+            <button id="closeSidebar">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="setting-item" style="align-items: center; margin-bottom: 30px;">
+                <div style="position: relative;">
+                    <img id="sidebarPfp" src="assets/pfp.png"
+                        style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff3b3b;">
+                    <label for="pfpUpload"
+                        style="position: absolute; bottom: 0; right: 0; background: #ff3b3b; border-radius: 50%; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 12px;">
+                        📷
+                    </label>
+                </div>
+                <input type="file" id="pfpUpload" accept="image/*" style="display: none;">
+                <span style="font-size: 12px; color: #b3b3b3; margin-top: 10px;">Alterar Foto</span>
+            </div>
+
+            <div class="setting-item">
+                <label>Qualidade de Vídeo</label>
+                <select>
+                    <option>Automático</option>
+                    <option>1080p (Full HD)</option>
+                    <option>720p</option>
+                    <option>480p</option>
+                </select>
+            </div>
+            <div class="setting-item">
+                <label>Reprodução Automática</label>
+                <input type="checkbox" checked>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+            <button class="logout-btn" onclick="window.location.href='login.html'">Sair da Conta</button>
+        </div>
+    </div>
+</body>
+<script src="script.js">
+</script>
+</html>
